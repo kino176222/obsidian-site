@@ -64,7 +64,7 @@ export function Contact() {
                     viewport={{ once: true }}
                     className="mt-20 pt-8 border-t border-white/10 text-gray-500 text-sm"
                 >
-                    © 2024 Obsidian AI Musician. All rights reserved.
+                    © 2025 Obsidian AI Musician. All rights reserved.
                 </motion.div>
             </div>
         </section>

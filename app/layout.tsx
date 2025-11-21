@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP } from "next/font/google";
+import { Noto_Sans_JP, Montserrat } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
+  subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
@@ -17,17 +17,20 @@ export const metadata: Metadata = {
   description: "Official homepage of AI Musician Obsidian. Cinematic Emo & Post-Rock.",
 };
 
+import { AudioPlayer } from "@/components/features/AudioPlayer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${notoSansJP.variable} antialiased bg-background text-foreground`}
+        className={`${notoSansJP.variable} ${montserrat.variable} antialiased bg-obsidian-bg text-white selection:bg-obsidian-accent selection:text-white pb-24`}
       >
         {children}
+        <AudioPlayer />
       </body>
     </html>
   );

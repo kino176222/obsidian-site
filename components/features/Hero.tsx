@@ -2,8 +2,14 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Play } from "lucide-react";
 
 export function Hero() {
+    const handlePlay = () => {
+        const event = new CustomEvent('toggle-music');
+        window.dispatchEvent(event);
+    };
+
     return (
         <section id="top" className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#121212]">
             {/* Background Image - Fades in faster */}
@@ -26,7 +32,7 @@ export function Hero() {
 
 
             {/* Content */}
-            <div className="relative z-10 text-center">
+            <div className="relative z-10 text-center flex flex-col items-center">
                 {/* Flash - Synced with lightning start */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -36,12 +42,12 @@ export function Hero() {
                 />
 
                 <div className="relative inline-block w-full max-w-6xl">
-                    {/* Main Title with Glitch Reveal */}
+                    {/* Main Title - Clean reveal with lightning */}
                     <motion.h1
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6, duration: 0.1 }}
-                        className="text-6xl md:text-9xl font-bold tracking-tighter text-white relative z-10 animate-glitch"
+                        transition={{ delay: 0.5, duration: 0.3, ease: "easeOut" }}
+                        className="text-6xl md:text-9xl font-bold tracking-tighter text-white relative z-10"
                     >
                         Obsidian
                     </motion.h1>
@@ -51,11 +57,29 @@ export function Hero() {
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 1.5 }}
+                    transition={{ duration: 0.8, delay: 1.5 }}
                     className="mt-4 text-xl md:text-2xl text-gray-300 tracking-widest font-light"
                 >
                     AI MUSICIAN
                 </motion.p>
+
+                {/* Listen Now Button */}
+                <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.5, duration: 0.8 }}
+                    onClick={handlePlay}
+                    className="mt-12 group relative px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-obsidian-accent/50"
+                >
+                    <div className="absolute inset-0 rounded-full bg-obsidian-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative flex items-center gap-3">
+                        <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white text-black">
+                            <Play size={20} fill="currentColor" className="ml-1" />
+                            <div className="absolute inset-0 rounded-full border border-white animate-ping opacity-20" />
+                        </div>
+                        <span className="text-lg font-medium tracking-wider text-white">LISTEN NOW</span>
+                    </div>
+                </motion.button>
             </div>
 
             {/* Full Screen Lightning Container - Independent of content width */}

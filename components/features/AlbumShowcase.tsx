@@ -108,32 +108,34 @@ export function AlbumShowcase() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto"
                         onClick={() => setSelectedAlbum(null)}
                     >
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-obsidian-gray border border-white/10 rounded-2xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row shadow-2xl"
+                            className="relative bg-obsidian-gray border border-white/10 rounded-2xl overflow-hidden max-w-5xl w-full flex flex-col md:flex-row shadow-2xl my-auto"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            {/* Cover Art Side */}
-                            <div className="relative w-full md:w-1/2 aspect-square md:aspect-auto">
-                                <Image
-                                    src={selectedAlbum.cover}
-                                    alt={selectedAlbum.title}
-                                    fill
-                                    className="object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-obsidian-gray via-transparent to-transparent md:bg-gradient-to-r" />
+                            {/* Cover Art Side - Sticky on Desktop */}
+                            <div className="relative w-full md:w-1/2 aspect-square md:aspect-auto md:h-auto">
+                                <div className="sticky top-0 h-full min-h-[300px] md:min-h-full">
+                                    <Image
+                                        src={selectedAlbum.cover}
+                                        alt={selectedAlbum.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian-gray via-transparent to-transparent md:bg-gradient-to-r" />
+                                </div>
                             </div>
 
-                            {/* Content Side */}
-                            <div className="p-8 md:p-12 flex flex-col justify-center w-full md:w-1/2 overflow-y-auto">
+                            {/* Content Side - Scrollable */}
+                            <div className="p-8 md:p-12 flex flex-col w-full md:w-1/2 max-h-[60vh] md:max-h-[80vh] overflow-y-auto custom-scrollbar">
                                 <button
                                     onClick={() => setSelectedAlbum(null)}
-                                    className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors"
+                                    className="absolute top-4 right-4 p-2 z-10 bg-black/50 rounded-full text-gray-400 hover:text-white transition-colors"
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
@@ -174,6 +176,48 @@ export function AlbumShowcase() {
                                         Listen on Suno
                                     </a>
                                 </div>
+
+                                {/* Music Videos Section */}
+                                {selectedAlbum.mvs && selectedAlbum.mvs.length > 0 && (
+                                    <div className="mt-8 pt-8 border-t border-white/10">
+                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Music Videos</h4>
+                                        <div className="grid grid-cols-1 gap-4">
+                                            {selectedAlbum.mvs.map((mv, i) => (
+                                                <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-black/50 border border-white/10">
+                                                    <iframe
+                                                        width="100%"
+                                                        height="100%"
+                                                        src={`https://www.youtube.com/embed/${mv.id}`}
+                                                        title={mv.title}
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                        className="absolute inset-0"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Concept Art Section */}
+                                {selectedAlbum.conceptArt && selectedAlbum.conceptArt.length > 0 && (
+                                    <div className="mt-8 pt-8 border-t border-white/10">
+                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Concept Art</h4>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {selectedAlbum.conceptArt.map((art, i) => (
+                                                <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-white/10 group cursor-pointer">
+                                                    <Image
+                                                        src={art}
+                                                        alt={`Concept Art ${i + 1}`}
+                                                        fill
+                                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                                    />
+                                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     </motion.div>
