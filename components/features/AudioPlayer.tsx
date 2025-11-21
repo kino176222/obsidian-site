@@ -45,13 +45,14 @@ export function AudioPlayer() {
     };
 
     return (
-        <div className={`fixed bottom-6 right-6 z-[200] w-[320px] bg-black rounded-xl overflow-hidden shadow-2xl transition-all duration-500 transform border border-white/10 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
+        <div className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[200] w-[280px] md:w-[320px] bg-black rounded-xl overflow-hidden shadow-2xl transition-all duration-500 transform border border-white/10 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
             {/* Close Button */}
             <button
                 onClick={handleClose}
-                className="absolute top-2 right-2 z-20 p-1 bg-black/60 rounded-full text-white/80 hover:text-white hover:bg-black/90 transition-all backdrop-blur-sm"
+                className="absolute top-2 right-2 z-20 p-2 bg-black/80 rounded-full text-white hover:text-white hover:bg-black transition-all backdrop-blur-sm shadow-lg"
+                aria-label="Close player"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
 
             <div className="relative w-full aspect-video bg-black">
