@@ -15,6 +15,29 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Obsidian | AI Musician",
   description: "Official homepage of AI Musician Obsidian. Cinematic Emo & Post-Rock.",
+  metadataBase: new URL('https://obsidian-site-theta.vercel.app'),
+  openGraph: {
+    title: "Obsidian | AI Musician",
+    description: "Official homepage of AI Musician Obsidian. Cinematic Emo & Post-Rock.",
+    url: 'https://obsidian-site-theta.vercel.app',
+    siteName: 'Obsidian',
+    images: [
+      {
+        url: '/hero-bg-new.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Obsidian AI Musician',
+      },
+    ],
+    locale: 'ja_JP',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Obsidian | AI Musician",
+    description: "Official homepage of AI Musician Obsidian. Cinematic Emo & Post-Rock.",
+    images: ['/hero-bg-new.webp'],
+  },
 };
 
 import { AudioPlayer } from "@/components/features/AudioPlayer";
