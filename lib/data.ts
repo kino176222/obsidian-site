@@ -119,7 +119,7 @@ export const albums: Album[] = [
         ],
         conceptArt: [
             "/concept/album3/3060307266684823.png",
-            "/concept/album3/Cursor _11.png",
+            "/concept/album3/cursor_11.png", // Renamed from "Cursor _11.png"
             "/concept/album3/Obsidian.png",
             "/concept/album3/easy-banana-2025-11-29T06-30-39-896Z.png",
             "/concept/album3/easy-banana-2025-11-29T07-46-29-458Z.png",
