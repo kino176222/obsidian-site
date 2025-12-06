@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { albums, Album } from "@/lib/data";
-import { X, Play, Disc } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { X, Play } from "lucide-react";
 
 export function AlbumShowcase() {
     const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);

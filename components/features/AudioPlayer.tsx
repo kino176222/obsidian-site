@@ -19,19 +19,15 @@ export function AudioPlayer() {
 
     // Hydration fix & Event Listener
     useEffect(() => {
-        setMounted(true);
+        const timer = setTimeout(() => setMounted(true), 0);
 
         const handleToggleMusic = () => {
-            console.log('Toggle music event received, current isVisible:', isVisible);
-            setIsVisible(prev => {
-                console.log('Toggling from', prev, 'to', !prev);
-                return !prev;
-            });
+            setIsVisible(prev => !prev);
         };
 
         window.addEventListener('toggle-music', handleToggleMusic);
-
         return () => {
+            clearTimeout(timer);
             window.removeEventListener('toggle-music', handleToggleMusic);
         };
     }, []);
@@ -39,15 +35,6 @@ export function AudioPlayer() {
     if (!mounted || playlist.length === 0) return null;
 
     const currentTrack = playlist[currentTrackIndex];
-
-    const handleClose = () => {
-        console.log('Close button clicked!');
-        setIsVisible(false);
-    };
-
-    const handleNext = () => {
-        setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
-    };
 
     if (!isVisible) return null;
 

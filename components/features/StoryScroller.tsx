@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 interface StoryChapter {
     id: string;
@@ -155,12 +155,12 @@ export function StoryScroller() {
                         この物語の結末を、あなたの耳で確かめてください。
                     </p>
                     <div className="flex gap-4 justify-center">
-                        <a href="/#discography" className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-purple-400 hover:text-white transition-all duration-300 shadow-lg shadow-white/10">
+                        <Link href="/#discography" className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-purple-400 hover:text-white transition-all duration-300 shadow-lg shadow-white/10">
                             Listen to 3rd Album
-                        </a>
-                        <a href="/#visual" className="px-8 py-3 border border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-all duration-300">
+                        </Link>
+                        <Link href="/#visual" className="px-8 py-3 border border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-all duration-300">
                             Watch MV
-                        </a>
+                        </Link>
                     </div>
                 </motion.div>
             </section>
