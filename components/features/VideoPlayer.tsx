@@ -41,10 +41,10 @@ export function VideoSection() {
                     transition={{ duration: 0.8 }}
                 >
                     {/* Latest MV */}
-                    <VideoPlayer videoId="0c1aOTYHy9I" title="Obsidian - Latest MV" />
+                    <VideoPlayer videoId="Z_tCUd2_Zj0" title="Daybreak Signal" />
 
                     <div className="mt-8 text-center md:text-left">
-                        <h3 className="text-2xl font-bold text-white mb-2">Obsidian - Latest MV</h3>
+                        <h3 className="text-2xl font-bold text-white mb-2">Daybreak Signal</h3>
                         <p className="text-gray-400 max-w-2xl">
                             最新のミュージックビデオをご覧ください。
                         </p>

@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const navItems = [
     { label: "TOP", href: "#top" },
-    { label: "STORY", href: "#story" },
+    { label: "STORY", href: "/story" },
     { label: "DISCOGRAPHY", href: "#discography" },
     { label: "VISUAL", href: "#visual" },
     { label: "CONTACT", href: "#contact" },
@@ -16,6 +17,7 @@ export function Navigation() {
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("top");
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -40,8 +42,48 @@ export function Navigation() {
     }, []);
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        e.preventDefault();
+        // Dispatch event to close any open modals (like Album detail)
+        const event = new CustomEvent('close-album-modal');
+        window.dispatchEvent(event);
+
+        // If it's a page link (starts with /), let default behavior happen (navigation)
+        if (href.startsWith("/")) {
+            setMobileMenuOpen(false);
+            return;
+        }
+
         const targetId = href.slice(1);
+
+        // If not on homepage, let default navigation happen for hash links (which will go to /#id due to base href or manual handling needs)
+        // Wait, 'href' here is just '#top' or '#discography'. 
+        // If we are NOT on root, we want to force navigation to /#id.
+        if (pathname !== "/") {
+            // For TOP, we typically want just "/" or "/#top"
+            if (targetId === "top") {
+                setMobileMenuOpen(false);
+                // Allow default anchor behavior if href is absolute? No, href is #top.
+                // We need to redirect.
+                e.preventDefault();
+                window.location.href = "/";
+                return;
+            }
+
+            // For others, redirect to /#id
+            e.preventDefault();
+            window.location.href = `/#${targetId}`;
+            setMobileMenuOpen(false);
+            return;
+        }
+
+        // On Homepage:
+        e.preventDefault();
+
+        if (targetId === "top") {
+            window.scrollTo(0, 0); // Immediate scroll to top
+            setMobileMenuOpen(false);
+            return;
+        }
+
         const element = document.getElementById(targetId);
         if (element) {
             element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -63,9 +105,16 @@ export function Navigation() {
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                     {/* Logo */}
                     <a
-                        href="#top"
-                        onClick={(e) => handleClick(e, "#top")}
-                        className="text-2xl font-bold tracking-tighter text-white hover:text-purple-400 transition-colors z-[101]"
+                        href={pathname === "/" ? "#top" : "/"}
+                        onClick={(e) => {
+                            if (pathname === "/") {
+                                handleClick(e, "#top");
+                            } else {
+                                // Allow default navigation to / which is reload/navigate
+                                setMobileMenuOpen(false);
+                            }
+                        }}
+                        className="text-2xl font-bold tracking-tighter text-white hover:text-purple-400 transition-colors z-[101] cursor-pointer"
                     >
                         Obsidian
                     </a>
